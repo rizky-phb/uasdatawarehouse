@@ -1,0 +1,108 @@
+<?php 
+public function get_sales_prediction( $product_id, $start_date, $end_date )
+{
+    $this->select( $this->table.'.*');
+    $this->select( 'product.name as product_name');
+    $this->select( 'CONCAT( '.$this->table.'.month, " ", '.$this->table.'.year ) as month_year');
+    $this->select( 'sale.quantity as _y');
+    $this->select( '0 as _x');
+    $this->select( '0 as _xx');
+    $this->select( '0 as _xy');
+    $this->join( 
+      'product',
+      'product.id = sale.product_id',
+      'inner'
+    );
+    $this->where( $this->table.'.product_id', $product_id);
+
+    $this->where( $this->table.'.date BETWEEN "'.$start_date.'" AND "'.$end_date.'" ', "");
+    $this->order_by( "sale.year asc , sale.month asc", "");
+    return $this->fetch_data();
+}
+public function odd_prediction( $data )
+	{
+    $_n = count( $data );
+		$_mid = ( ( $_n - 1 ) / 2 ) + 1;
+
+		$sum_x 		= 0;
+		$sum_y 		= 0;
+		$sum_xx 	= 0;
+		$sum_xy 	= 0;
+
+		for( $i =0 , $_x = ( $_mid - 1 ) * -1; $_x <= ( $_mid - 1 ), $i < $_n ; $_x++, $i++ )
+		{
+			$sum_x += $_x;
+			$sum_y += $data[$i]->_y;
+			$sum_xx += ( $_x*$_x );
+			$sum_xy += ( $_x*$data[$i]->_y );
+
+			$data[$i]->_x = $_x;
+			$data[$i]->_xx = ( $_x*$_x );
+			$data[$i]->_xy = ( $_x*$data[$i]->_y );
+		}
+
+		$data []= ( object ) 
+			array(
+				"id" => 0,
+				"product_id" => 0,
+				"month" => "Total",
+				"year" => 0,
+				"quantity" => 0,
+				"product_name" => 0,
+				"next_x" => $_mid,
+				"_x" => $sum_x,
+				"_y" => $sum_y,
+				"_xx" => $sum_xx,
+				"_xy" => $sum_xy,
+
+			);
+		return $data;
+	}
+
+	public function even_prediction( $data )
+	{
+    $_n = count( $data );
+		$_mid = $_n / 2;
+
+		$sum_x 		= 0;
+		$sum_y 		= 0;
+		$sum_xx 	= 0;
+		$sum_xy 	= 0;
+
+		for( $i =0 , $_x = ( $_mid * 2 - 1 ) * -1; $_x <= ( $_mid * 2 - 1 ) , $i < $_n ; $_x+= 2 , $i++ )
+		{
+			$sum_x += $_x;
+			$sum_y += $data[$i]->_y;
+			$sum_xx += ( $_x*$_x );
+			$sum_xy += ( $_x*$data[$i]->_y );
+
+			$data[$i]->_x = $_x;
+			$data[$i]->_xx = ( $_x*$_x );
+			$data[$i]->_xy = ( $_x*$data[$i]->_y );
+		}
+
+		$data []= ( object ) 
+			array(
+				"id" => 0,
+				"product_id" => 0,
+				"month" => "Total",
+				"year" => 0,
+				"quantity" => 0,
+				"product_name" => 0,
+				"next_x" => $_mid*2 +1,
+				"_x" => $sum_x,
+				"_y" => $sum_y,
+				"_xx" => $sum_xx,
+				"_xy" => $sum_xy,
+
+			);
+		return $data;
+	}
+$prediction = $this->services->even_prediction( HASIL_QUERY );
+$result = $prediction[ count( $prediction  ) -1 ];
+$_n = count( $prediction  ) -1  ;
+$x = $result->next_x;
+$a = $result->_y / $_n;
+$b = $result->_xy / $result->_xx ;
+$_y_accent = $a +( $b * $result->next_x ) ;
+?>

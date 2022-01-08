@@ -1,0 +1,71 @@
+<?php
+include_once 'configlogin.php';
+
+$config = new Config();
+$db = $config->getConnection();
+
+if ($_POST) {
+    include_once 'ambiluser.php';
+    $login = new Login($db);
+    $login->userid = $_POST['username'];
+    $login->passid = ($_POST['password']);
+    if ($login->login()) {
+        echo "<script>location.href='train.php'</script>";
+    } else {
+        $msg = "Username / Password tidak sesuai!";
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>System Pendukung Keputusan Tema Skripsi</title>
+    <link rel="stylesheet" href="css/bootstrap2.min.css">
+    <link rel="stylesheet" href="css/sweetalert.css">
+    <link rel="stylesheet" href="css/stylelogin.css">
+</head>
+<body style="background-image:url(lempartoga.jpeg);background-size:cover;">
+    <div class="container">
+        <div class="row">  
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <form action="<?=$_SERVER['REQUEST_URI']?>" method="POST">
+                    <div class="panel panel-dark login-box">
+                        <div class="panel-heading"><h3 class="text-center">Silahkan Login</h3></div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" name="username" class="form-control" placeholder="Username" autofocus="on">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" name="password" class="form-control" placeholder="Password">
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <button type="submit" class="btn btn-dark raised btn-block">Login</button>
+                            <br>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/sweetalert.min.js"></script>
+	<?php if (isset($msg)): ?>
+    <script type="text/javascript">
+		swal({
+            title: "Maaf!",
+            text: "<?=$msg?>",
+            type: "error",
+            timer: 2000,
+            confirmButtonColor: "#DD6B55"
+		})
+	</script>
+	<?php endif; ?>
+</body>
+</html>

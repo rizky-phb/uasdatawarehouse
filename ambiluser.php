@@ -1,7 +1,7 @@
 <?php
 class Login {
     private $conn;
-    private $table_name = "login";
+    private $table_name = "user";
 
     public $user;
     public $userid;
