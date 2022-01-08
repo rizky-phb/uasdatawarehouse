@@ -1,8 +1,8 @@
 # uasdatawarehouse
-rumus :
-<code>Y = a0 +bx</code>
-<code>a = (SY) / n</code>
-<code>b = (SYx) / Sx2</code>
+rumus :<br>
+<code>Y = a0 +bx</code><br>
+<code>a = (SY) / n</code><br>
+<code>b = (SYx) / Sx2</code><br>
 
 dengan :
 
@@ -12,6 +12,6 @@ dengan :
 
     b     = rata-rata pertumbuhan nilai trend tiap tahun.
 
-    x     = variabel waktu (hari, minggu, bulan atau tahun).
+    x     = variabel waktu (hari, minggu, bulan atau tahun).<br>
 jadi database uts saya ada tambahan yaitu tabel login untuk login ke aplikasi ,<br>
 lalu tabel excell dari tabel disebut di ekstrak sebagai csv dan diimput ke dalam aplikasi <br>
