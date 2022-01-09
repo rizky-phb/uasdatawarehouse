@@ -1,6 +1,6 @@
 <?php 
-public function get_sales_prediction( $product_id, $start_date, $end_date )
-{
+
+public function get_sales_prediction( $product_id, $start_date, $end_date ){
     $this->select( $this->table.'.*');
     $this->select( 'product.name as product_name');
     $this->select( 'CONCAT( '.$this->table.'.month, " ", '.$this->table.'.year ) as month_year');

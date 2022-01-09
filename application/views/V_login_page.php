@@ -1,9 +1,9 @@
-<section class="container g-py-100">
+<section class="container g-py-100" style="background-image: url('<?php echo base_url( 'assets/img' )?>/bg-app.jpg');">
       <div class="row justify-content-center">
         <div class="col-sm-8 col-lg-5">
           <div class="g-brd-around g-brd-gray-light-v4 rounded g-py-40 g-px-30">
             <header class="text-center mb-4">
-              <h2 class="h2 g-color-black g-font-weight-600">Login</h2>
+              <h2 class="h2 g-color-black g-font-weight-600">login</h2>
             </header>
             <?php
               if($this->session->flashdata('alert')){
