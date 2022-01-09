@@ -1,7 +1,7 @@
 <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 <table>
     <tr>
-        <td style="text-align:center;font-size: 12px;font-weight: bold ">PT PINUS MERAH ABADI</td>        
+        <td style="text-align:center;font-size: 12px;font-weight: bold "></td>        
     </tr>
 </table>
 <hr>
