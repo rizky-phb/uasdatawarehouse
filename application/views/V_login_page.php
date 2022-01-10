@@ -1,3 +1,8 @@
+<style>
+  #landing{
+    background-image: url('<?php echo base_url( 'assets/img' )?>/bg-app.jpg');background-position: bottom;";
+  }
+</style>
 <section class="container g-py-100" style="background-image: url('<?php echo base_url( 'assets/img' )?>/bg-app.jpg');">
       <div class="row justify-content-center">
         <div class="col-sm-8 col-lg-5">
